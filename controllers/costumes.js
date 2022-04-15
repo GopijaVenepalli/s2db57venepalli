@@ -6,8 +6,15 @@ exports.costume_list = function(req, res) {
 }; 
  
 // for a specific Costume. 
-exports.costume_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Costume detail: ' + req.params.id); 
+exports.costume_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Costume.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
 }; 
  
 // Handle Costume create on POST. 
@@ -24,8 +31,8 @@ exports.costume_create_post = async function(req, res) {
     // and require that it be a json object 
     // {"costume_type":"goat", "cost":12, "size":"large"} 
     document.costume_type = req.body.costume_type; 
-    document.cost = req.body.cost; 
-    document.size = req.body.size; 
+    document.costume_name = req.body.costume_name; 
+    document.units = req.body.units; 
     try{ 
         let result = await document.save(); 
         res.send(result); 
@@ -42,8 +49,24 @@ exports.costume_delete = function(req, res) {
 }; 
  
 // Handle Costume update form on PUT. 
-exports.costume_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Costume update PUT' + req.params.id); 
+exports.costume_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await Costume.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.costume_type)  
+               toUpdate.costume_type = req.body.costume_type; 
+        if(req.body.costume_name) toUpdate.costume_name = req.body.costume_name; 
+        if(req.body.units) toUpdate.units = req.body.units; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
+    } 
 }; 
 
 // List of all Costumes 
