@@ -27,5 +27,11 @@ router.get('/resource/costumes/:id', costume_controller.costume_detail);
  
 // GET request for list of all Costume items. 
 router.get('/resource/costumes', costume_controller.costume_list); 
+
+/* GET detail costume page */ 
+router.get('/detail', costume_controller.costume_view_one_Page); 
+ 
+/* GET create costume page */ 
+router.get('/create', costume_controller.costume_create_Page); 
  
 module.exports = router; 

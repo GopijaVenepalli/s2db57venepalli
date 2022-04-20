@@ -1,0 +1,33 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='CostumeForm', action="/resource/resource/costumes", method="POST") 
+    div.form-group 
+        label.costumeAttr(for='costume_type') Costume type 
+        input#costume_type(type='text', name='costume_type') 
+    div.form-group 
+        label.costumeAttr(for='costume_name') Costume name 
+        input#costume_name(type='text', name='costume_name') 
+    div.form-group 
+        label.costumeAttr(for='units') Costume units 
+        input#units(type='number', name='units') 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['CostumeForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(event.target)) 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 
