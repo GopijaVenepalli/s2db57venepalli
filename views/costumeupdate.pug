@@ -3,41 +3,44 @@ extends layout
 block content 
   h1= title
   
-  - let costumeid = toShow._id 
-  - let costume_type = toShow.costume_type 
-  - let costume_name = toShow.costume_name 
-  - let units = toShow.units 
+  if(toShow == null)
+    h2 No Instance 
+  else
+    - let costumeid = toShow._id 
+    - let costume_type = toShow.costume_type 
+    - let costume_name = toShow.costume_name 
+    - let units = toShow.units 
    
-  div.row(class='mb-2') 
-    div.mr-1 ID is 
-    div #{costumeid} 
-  - let actionid = "/resource/resource/costumes/" + costumeid 
-  form(id='CostumeForm', action= actionid, method="PUT") 
-    div.form-group 
-        label.costumeAttr(for='costume_type') Costume type 
-        input#costume_type(type='text', name='costume_type', value= costume_type ) 
-    div.form-group 
-        label.costumeAttr(for='costume_name') Costume name 
-        input#costume_name(type='text', name='costume_name', value= costume_name ) 
-    div.form-group 
-        label.costumeAttr(for='units') Costume units 
-        input#units(type='number', name='units', value= units ) 
-    input(type="submit") 
+    div.row(class='mb-2') 
+      div.mr-1 ID is 
+      div #{costumeid} 
+    - let actionid = "/resource/resource/costumes/" + costumeid 
+    form(id='CostumeForm', action= actionid, method="PUT") 
+      div.form-group 
+          label.costumeAttr(for='costume_type') Costume type 
+          input#costume_type(type='text', name='costume_type', value= costume_type ) 
+      div.form-group 
+          label.costumeAttr(for='costume_name') Costume name 
+          input#costume_name(type='text', name='costume_name', value= costume_name ) 
+      div.form-group 
+          label.costumeAttr(for='units') Costume units 
+          input#units(type='number', name='units', value= units ) 
+      input(type="submit") 
  
-  script. 
-    document.forms['CostumeForm'].addEventListener('submit', (event) => { 
-      event.preventDefault(); 
-      // TODO do something here to show user that form is being submitted 
-      fetch(event.target.action, { 
-        method: 'PUT', 
-        body: new URLSearchParams(new FormData(event.target))
-      }).then((resp) => { 
-        return resp.json(); // or resp.text() or whatever the server sends 
-      }).then((body) => { 
-        alert("Update succeded") 
-        // TODO handle body 
-      }).catch((error) => { 
-        // TODO handle error 
-        alert("Update failed " + error ) 
+    script. 
+      document.forms['CostumeForm'].addEventListener('submit', (event) => { 
+        event.preventDefault(); 
+        // TODO do something here to show user that form is being submitted 
+        fetch(event.target.action, { 
+          method: 'PUT', 
+          body: new URLSearchParams(new FormData(event.target))
+        }).then((resp) => { 
+          return resp.json(); // or resp.text() or whatever the server sends 
+        }).then((body) => { 
+          alert("Update succeded") 
+          // TODO handle body 
+        }).catch((error) => { 
+          // TODO handle error 
+          alert("Update failed " + error ) 
+        }); 
       }); 
-    }); 

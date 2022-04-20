@@ -10,4 +10,8 @@ a {
 .costumeAttr { 
   background-color: aquamarine; 
   width: 120px; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  font-style: italic;
+   
 } 
