@@ -3,15 +3,14 @@ extends layout
 block content
   h1= title
   - let costumes = [{costume_type:"Gamer Costumes", costume_name:"8-Ball", units: 15},{costume_type:"Superhero Costumes", costume_name:"Superman", units: 10},{costume_type:"Disney Costumes", costume_name:"Minnie Mouse", units: 5}]
-  div(class="container-fluid") 
-   div(class="row")
-    each costume,index in costumes
-        div(class="col-sm-2" onclick=`buy(${index})`) costume_type: #{costume.costume_type} , costume_name: #{costume.costume_name} , units: #{costume.units} 
-
-  script. 
-   let itemNo=0
-      function buy(itemNo)
-      {
-          alert(`You purchased Item ${itemNo+1}`)
-      }
-      
+    div(class="container-fluid") 
+      div(class="row m-1") 
+       each item in costumes  
+        - let destination = `dispatch(\"/costumes/update?id=${item._id}\")` 
+        div(class="row-sm-2", class="m-1") Item #{item.costume_type}(#{item.costume_name}) is #{item.units} 
+         button.btn( class="btn-primary ml-1", onclick= destination) Update 
+    
+    script. 
+     function dispatch(path){ 
+       window.location.href=path 
+     } 
