@@ -2,13 +2,19 @@ extends layout
 
 block content
   h1= title
-  - let costumes = [{costume_type:"Gamer Costumes", costume_name:"8-Ball", units: 15},{costume_type:"Superhero Costumes", costume_name:"Superman", units: 10},{costume_type:"Disney Costumes", costume_name:"Minnie Mouse", units: 5}]
+  - let items=results;
+  - let destination1 = `dispatch(\"/costumes/create\")`
+    button.btn( class="btn-info ml-1", onclick= destination1) create
     div(class="container-fluid") 
       div(class="row m-1") 
-       each item in costumes  
-        - let destination = `dispatch(\"/costumes/update?id=${item._id}\")` 
+       each item in items 
+        - let destination = `dispatch(\"/costumes/update?id=${item._id}\")`
+        - let destination2 = `dispatch(\"/costumes/detail?id=${item._id}\")`
+        - let destination3 = `dispatch(\"/costumes/delete?id=${item._id}\")` 
         div(class="row-sm-2", class="m-1") Item #{item.costume_type}(#{item.costume_name}) is #{item.units} 
-         button.btn( class="btn-primary ml-1", onclick= destination) Update 
+         button.btn( class="btn-primary ml-1", onclick= destination) Update
+         button.btn( class="btn-secondary ml-1", onclick= destination2) Detail
+         button.btn( class="btn-danger ml-1", onclick= destination3) Delete 
     
     script. 
      function dispatch(path){ 
