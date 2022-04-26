@@ -8,36 +8,24 @@ var costume_controller = require('../controllers/costumes');
 /// API ROUTE /// 
  
 // GET resources base. 
-router.get('/resource', api_controller.api); 
+router.get('/', api_controller.api); 
  
 /// COSTUME ROUTES /// 
  
 // POST request for creating a Costume.  
-router.post('/resource/costumes', costume_controller.costume_create_post); 
+router.post('/costumes', costume_controller.costume_create_post); 
  
 // DELETE request to delete Costume. 
-router.delete('/resource/costumes/:id', costume_controller.costume_delete); 
+router.delete('/costumes/:id', costume_controller.costume_delete); 
  
 // PUT request to update Costume. 
-router.put('/resource/costumes/:id', 
+router.put('/costumes/:id', 
 costume_controller.costume_update_put); 
  
 // GET request for one Costume. 
-router.get('/resource/costumes/:id', costume_controller.costume_detail); 
+router.get('/costumes/:id', costume_controller.costume_detail); 
  
 // GET request for list of all Costume items. 
-router.get('/resource/costumes', costume_controller.costume_list); 
-
-/* GET detail costume page */ 
-router.get('/detail', costume_controller.costume_view_one_Page); 
- 
-/* GET create costume page */ 
-router.get('/create', costume_controller.costume_create_Page); 
- 
-/* GET create update page */ 
-router.get('/update', costume_controller.costume_update_Page); 
-
-/* GET delete costume page */ 
-router.get('/delete', costume_controller.costume_delete_Page); 
+router.get('/costumes', costume_controller.costume_list); 
 
 module.exports = router; 

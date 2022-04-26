@@ -10,7 +10,7 @@ block content
     - let costume_type = toShow.costume_type 
     - let costume_name = toShow.costume_name 
     - let units = toShow.units 
-    - let actionid = "/resource/resource/costumes/" + costumeid 
+    - let actionid = "/resource/costumes/" + costumeid 
     script let actionid = "#{actionid}" 
     div 
       div.row 
@@ -32,7 +32,7 @@ block content
   script. 
     function cancel() { 
       // Go back to the home page for the costume collection 
-      window.location.href='/resource/resource/costumes' 
+      window.location.href='/resource/costumes' 
     } 
   script. 
     function deleteOnid() { 
